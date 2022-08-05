@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+// import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { receiveData } from '../redux/actions';
 // import { Link } from 'react-router-dom';
 // import { reciveEmail } from '../redux/actions';
 
@@ -12,10 +14,14 @@ class Login extends Component {
       disabledBol: true,
       email: '',
       playersName: '',
+      opa: '',
     };
 
     this.hadleChange = this.hadleChange.bind(this);
     this.activateButn = this.activateButn.bind(this);
+    this.saveToken = this.saveToken.bind(this);
+    this.redirect = this.redirect.bind(this);
+    // this.click = this.click.bind(this);
   }
 
   hadleChange({ target }) {
@@ -33,8 +39,31 @@ class Login extends Component {
     }
   }
 
+  redirect() {
+    const { savePlayersName, history } = this.props;
+    const { playersName, opa } = this.state;
+    savePlayersName(playersName);
+    history.push('/game');
+    console.log(opa);
+  }
+
+  async saveToken() {
+    console.log('oi');
+    try {
+      const url = 'https://opentdb.com/api_token.php?command=request';
+      const response = await fetch(url);
+      const json = await response.json();
+      console.log(json);
+      localStorage.setItem('token', json.token);
+    } catch (error) {
+      console.log(error);
+    }
+    this.setState({ opa: 'oi' }, this.redirect);
+  }
+
   render() {
     const { email, playersName, disabledBol } = this.state;
+    // const red = <Redirect to="/game" />;
     // const { usersEmail } = this.props;
     return (
       <form>
@@ -61,7 +90,7 @@ class Login extends Component {
         <button
           type="button"
           disabled={ disabledBol }
-          //   onClick={ () => usersEmail(email) }
+          onClick={ this.saveToken }
           data-testid="btn-play"
         >
           Play
@@ -72,4 +101,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  savePlayersName: (playersName) => dispatch(receiveData(playersName)),
+});
+
+Login.propTypes = {
+  savePlayersName: PropTypes.string.isRequired,
+  history: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+export default connect(null, mapDispatchToProps)(Login);
