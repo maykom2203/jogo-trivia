@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 // import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { receiveData } from '../redux/actions';
-// import { Link } from 'react-router-dom';
 // import { reciveEmail } from '../redux/actions';
+// import Header from './Header';
 
 class Login extends Component {
   constructor() {
@@ -41,8 +42,8 @@ class Login extends Component {
 
   redirect() {
     const { savePlayersName, history } = this.props;
-    const { playersName, opa } = this.state;
-    savePlayersName(playersName);
+    const { playersName, opa, email } = this.state;
+    savePlayersName(playersName, email);
     history.push('/game');
     console.log(opa);
   }
@@ -66,43 +67,50 @@ class Login extends Component {
     // const red = <Redirect to="/game" />;
     // const { usersEmail } = this.props;
     return (
-      <form>
-        <label htmlFor="playersName">
-          Nome:
-          <input
-            type="text"
-            data-testid="input-player-name"
-            name="playersName"
-            value={ playersName }
-            onChange={ this.hadleChange }
-          />
-          <label htmlFor="email">
-            Email:
+      <div>
+        <form>
+          <label htmlFor="playersName">
+            Nome:
             <input
-              type="email"
-              data-testid="input-gravatar-email"
-              name="email"
-              value={ email }
+              type="text"
+              data-testid="input-player-name"
+              name="playersName"
+              value={ playersName }
               onChange={ this.hadleChange }
             />
+            <label htmlFor="email">
+              Email:
+              <input
+                type="email"
+                data-testid="input-gravatar-email"
+                name="email"
+                value={ email }
+                onChange={ this.hadleChange }
+              />
+            </label>
           </label>
-        </label>
-        <button
-          type="button"
-          disabled={ disabledBol }
-          onClick={ this.saveToken }
-          data-testid="btn-play"
-        >
-          Play
+          <button
+            type="button"
+            disabled={ disabledBol }
+            onClick={ this.saveToken }
+            data-testid="btn-play"
+          >
+            Play
 
-        </button>
-      </form>
+          </button>
+          <Link to="/settings">
+            <button type="button" data-testid="btn-settings">
+              Configurações
+            </button>
+          </Link>
+        </form>
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  savePlayersName: (playersName) => dispatch(receiveData(playersName)),
+  savePlayersName: (playersName, email) => dispatch(receiveData(playersName, email)),
 });
 
 Login.propTypes = {

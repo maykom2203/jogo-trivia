@@ -13,6 +13,7 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       name: action.playersName,
+      gravatarEmail: action.email,
     };
   default:
     return state;
