@@ -114,7 +114,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Login.propTypes = {
-  savePlayersName: PropTypes.string.isRequired,
-  history: PropTypes.arrayOf(PropTypes.string).isRequired,
+  savePlayersName: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
+
 export default connect(null, mapDispatchToProps)(Login);
