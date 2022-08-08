@@ -14,6 +14,8 @@ class Game extends Component {
       printedAlternatives: [],
       correctAlternative: [],
       logOut: false,
+      red: '',
+      green: '',
     });
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -56,7 +58,9 @@ class Game extends Component {
   }
 
   shuffleAnswers() {
-    const { questions, questionNumber } = this.state;
+    const { questions,
+      // questionNumber
+    } = this.state;
     const printedQuestion = questions[0];
     this.setState({ printedQuestion });
     const correct = printedQuestion.correct_answer;
@@ -65,18 +69,14 @@ class Game extends Component {
     const array = alternatives.find((alternative) => alternative === correct);
     if (!array) {
       alternatives.push(correct);
-      this.setState({ printedAlternatives: this.shuffleArray(alternatives) });
     }
+    this.setState({ printedAlternatives: this.shuffleArray(alternatives) });
   }
 
   nextQuestion({ target }) {
-    console.log(target.innerText);
-    const { correctAlternative } = this.state;
-    if (target.innerText === correctAlternative) {
-      target.className = 'green-border';
-    } else {
-      target.className = 'red-border';
-    }
+    console.log(target);
+    this.setState({ red: 'red-border', green: 'green-border' });
+
     this.setState((estadoAnterior) => ({
       questionNumber: estadoAnterior.questionNumber + 1,
     }), this.shuffleAnswers);
@@ -84,7 +84,7 @@ class Game extends Component {
 
   render() {
     const { printedQuestion, printedAlternatives,
-      correctAlternative, logOut } = this.state;
+      correctAlternative, logOut, green, red } = this.state;
     // if (questions.length === 0) {
     //   this.setState({ logOut: true });
     // }
@@ -102,6 +102,7 @@ class Game extends Component {
                   key={ index }
                   data-testid="correct-answer"
                   onClick={ this.nextQuestion }
+                  className={ green }
                 >
                   {alternative}
 
@@ -112,6 +113,7 @@ class Game extends Component {
                   key={ index }
                   data-testid={ `wrong-answer-${index}` }
                   onClick={ this.nextQuestion }
+                  className={ red }
                 >
                   {alternative}
 
