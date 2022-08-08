@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from './Header';
+import '../App.css';
 
 class Game extends Component {
   constructor() {
@@ -56,16 +57,26 @@ class Game extends Component {
 
   shuffleAnswers() {
     const { questions, questionNumber } = this.state;
-    const printedQuestion = questions[questionNumber];
+    const printedQuestion = questions[0];
     this.setState({ printedQuestion });
     const correct = printedQuestion.correct_answer;
     this.setState({ correctAlternative: correct });
     const alternatives = printedQuestion.incorrect_answers;
-    alternatives.push(correct);
-    this.setState({ printedAlternatives: this.shuffleArray(alternatives) });
+    const array = alternatives.find((alternative) => alternative === correct);
+    if (!array) {
+      alternatives.push(correct);
+      this.setState({ printedAlternatives: this.shuffleArray(alternatives) });
+    }
   }
 
-  nextQuestion() {
+  nextQuestion({ target }) {
+    console.log(target.innerText);
+    const { correctAlternative } = this.state;
+    if (target.innerText === correctAlternative) {
+      target.className = 'green-border';
+    } else {
+      target.className = 'red-border';
+    }
     this.setState((estadoAnterior) => ({
       questionNumber: estadoAnterior.questionNumber + 1,
     }), this.shuffleAnswers);
