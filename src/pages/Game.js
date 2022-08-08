@@ -16,6 +16,7 @@ class Game extends Component {
       logOut: false,
       red: '',
       green: '',
+      btnNext: false,
     });
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -59,9 +60,9 @@ class Game extends Component {
 
   shuffleAnswers() {
     const { questions,
-      // questionNumber
+      questionNumber,
     } = this.state;
-    const printedQuestion = questions[0];
+    const printedQuestion = questions[questionNumber];
     this.setState({ printedQuestion });
     const correct = printedQuestion.correct_answer;
     this.setState({ correctAlternative: correct });
@@ -70,21 +71,23 @@ class Game extends Component {
     if (!array) {
       alternatives.push(correct);
     }
-    this.setState({ printedAlternatives: this.shuffleArray(alternatives) });
+    this.setState({ printedAlternatives: this.shuffleArray(alternatives),
+      green: '',
+      red: '' });
   }
 
   nextQuestion({ target }) {
     console.log(target);
-    this.setState({ red: 'red-border', green: 'green-border' });
+    this.setState({ red: 'red-border', green: 'green-border', btnNext: true });
 
     this.setState((estadoAnterior) => ({
       questionNumber: estadoAnterior.questionNumber + 1,
-    }), this.shuffleAnswers);
+    }));
   }
 
   render() {
     const { printedQuestion, printedAlternatives,
-      correctAlternative, logOut, green, red } = this.state;
+      correctAlternative, logOut, green, red, btnNext } = this.state;
     // if (questions.length === 0) {
     //   this.setState({ logOut: true });
     // }
@@ -122,6 +125,17 @@ class Game extends Component {
         </div>
         {
           logOut && <Redirect to="/" />
+        }
+        {
+          btnNext && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.shuffleAnswers }
+            >
+              Next
+
+            </button>)
         }
       </div>
     );
