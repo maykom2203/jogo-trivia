@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from './Header';
 import '../App.css';
+import { playerScore } from '../redux/actions';
 
 class Game extends Component {
   constructor() {
@@ -19,12 +21,14 @@ class Game extends Component {
       btnNext: false,
       contador: 30,
       disableBtn: false,
+      localScore: 10,
     });
 
     this.getQuestions = this.getQuestions.bind(this);
     this.shuffleAnswers = this.shuffleAnswers.bind(this);
     this.shuffleArray = this.shuffleArray.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.scoreCalculator = this.scoreCalculator.bind(this);
   }
 
   async componentDidMount() {
@@ -100,8 +104,31 @@ class Game extends Component {
       red: '' });
   }
 
-  nextQuestion({ target }) {
-    console.log(target);
+  scoreCalculator() {
+    const { playerScoreDispatch } = this.props;
+    const { contador, printedQuestion, localScore } = this.state;
+    const maggicNumber = 10;
+    if (printedQuestion.difficulty === 'hard') {
+      const difficulty = 3;
+      this.setState({
+        localScore: maggicNumber + (contador * difficulty),
+      }, () => playerScoreDispatch(localScore));
+    } else if (printedQuestion.difficulty === 'medium') {
+      const difficulty = 2;
+      this.setState({
+        localScore: maggicNumber + (contador * difficulty),
+      }, () => playerScoreDispatch(localScore));
+    } else {
+      const difficulty = 1;
+      this.setState({
+        localScore: maggicNumber + (contador * difficulty),
+      }, () => playerScoreDispatch(localScore));
+    }
+
+    this.nextQuestion();
+  }
+
+  nextQuestion() {
     this.setState({ red: 'red-border', green: 'green-border', btnNext: true });
 
     this.setState((estadoAnterior) => ({
@@ -127,7 +154,7 @@ class Game extends Component {
                   type="button"
                   key={ index }
                   data-testid="correct-answer"
-                  onClick={ this.nextQuestion }
+                  onClick={ this.scoreCalculator }
                   className={ green }
                   disabled={ disableBtn }
                 >
@@ -169,4 +196,8 @@ class Game extends Component {
   }
 }
 
-export default Game;
+const mapDispatchToProps = (dispatch) => ({
+  playerScoreDispatch: (score) => dispatch(playerScore(score)),
+});
+
+export default connect(null, mapDispatchToProps)(Game);
