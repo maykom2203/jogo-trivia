@@ -16,6 +16,8 @@ class Game extends Component {
       logOut: false,
       red: '',
       green: '',
+      contador: 10,
+
     });
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -27,6 +29,27 @@ class Game extends Component {
   async componentDidMount() {
     await this.getQuestions();
     this.shuffleAnswers();
+    const oneSecond = 1000;
+    this.timerID = setInterval(() => {
+      this.setState((prevState) => ({
+        contador: prevState.contador - 1,
+      }));
+    }, oneSecond);
+  }
+
+  componentDidUpdate(prevState) {
+    const zero = 0;
+    if (prevState.contador === zero) {
+      this.setState({
+        contador: 0,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(
+      this.setState(this.timerID),
+    );
   }
 
   async getQuestions() {
@@ -84,10 +107,11 @@ class Game extends Component {
 
   render() {
     const { printedQuestion, printedAlternatives,
-      correctAlternative, logOut, green, red } = this.state;
+      correctAlternative, logOut, green, red, contador } = this.state;
     // if (questions.length === 0) {
     //   this.setState({ logOut: true });
     // }
+
     return (
       <div>
         <Header />
@@ -118,7 +142,9 @@ class Game extends Component {
                   {alternative}
 
                 </button>)
+
           ))}
+          <p>{ contador }</p>
         </div>
         {
           logOut && <Redirect to="/" />
