@@ -17,6 +17,8 @@ class Game extends Component {
       red: '',
       green: '',
       btnNext: false,
+      contador: 30,
+      disableBtn: false,
     });
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -28,6 +30,28 @@ class Game extends Component {
   async componentDidMount() {
     await this.getQuestions();
     this.shuffleAnswers();
+    const oneSecond = 1000;
+    this.timerID = setInterval(() => {
+      this.setState((prevState) => ({
+        contador: prevState.contador - 1,
+      }));
+    }, oneSecond);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const zero = 0;
+    if (prevState.contador === zero) {
+      this.setState({
+        contador: 0,
+        disableBtn: true,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(
+      this.setState(this.timerID),
+    );
   }
 
   async getQuestions() {
@@ -87,10 +111,9 @@ class Game extends Component {
 
   render() {
     const { printedQuestion, printedAlternatives,
-      correctAlternative, logOut, green, red, btnNext } = this.state;
-    // if (questions.length === 0) {
-    //   this.setState({ logOut: true });
-    // }
+      correctAlternative, logOut, green, red, btnNext,
+      contador, disableBtn } = this.state;
+
     return (
       <div>
         <Header />
@@ -106,6 +129,7 @@ class Game extends Component {
                   data-testid="correct-answer"
                   onClick={ this.nextQuestion }
                   className={ green }
+                  disabled={ disableBtn }
                 >
                   {alternative}
 
@@ -117,11 +141,14 @@ class Game extends Component {
                   data-testid={ `wrong-answer-${index}` }
                   onClick={ this.nextQuestion }
                   className={ red }
+                  disabled={ disableBtn }
                 >
                   {alternative}
 
                 </button>)
+
           ))}
+          <p>{ contador }</p>
         </div>
         {
           logOut && <Redirect to="/" />
