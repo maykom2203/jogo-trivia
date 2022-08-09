@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import '../App.css';
 import { playerScore } from '../redux/actions';
@@ -21,7 +22,7 @@ class Game extends Component {
       btnNext: false,
       contador: 30,
       disableBtn: false,
-      localScore: 10,
+      localScore: 0,
     });
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -29,6 +30,7 @@ class Game extends Component {
     this.shuffleArray = this.shuffleArray.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
     this.scoreCalculator = this.scoreCalculator.bind(this);
+    this.dispatcher = this.dispatcher.bind(this);
   }
 
   async componentDidMount() {
@@ -101,31 +103,51 @@ class Game extends Component {
     }
     this.setState({ printedAlternatives: this.shuffleArray(alternatives),
       green: '',
-      red: '' });
+      red: '',
+      contador: 30 });
   }
 
   scoreCalculator() {
-    const { playerScoreDispatch } = this.props;
-    const { contador, printedQuestion, localScore } = this.state;
+    const { contador, printedQuestion } = this.state;
     const maggicNumber = 10;
+    // if (printedQuestion.difficulty === 'hard') {
+    //   const difficulty = 3;
+    //   this.setState({
+    //     localScore: maggicNumber + (contador * difficulty),
+    //   }, () => playerScoreDispatch(localScore));
+    // } else if (printedQuestion.difficulty === 'medium') {
+    //   const difficulty = 2;
+    //   this.setState({
+    //     localScore: maggicNumber + (contador * difficulty),
+    //   }, () => playerScoreDispatch(localScore));
+    // } else {
+    //   const difficulty = 1;
+    //   this.setState({
+    //     localScore: maggicNumber + (contador * difficulty),
+    //   }, () => playerScoreDispatch(localScore));
+    // }
+
+    let sum = 0;
     if (printedQuestion.difficulty === 'hard') {
       const difficulty = 3;
-      this.setState({
-        localScore: maggicNumber + (contador * difficulty),
-      }, () => playerScoreDispatch(localScore));
+      sum = maggicNumber + (contador * difficulty);
     } else if (printedQuestion.difficulty === 'medium') {
       const difficulty = 2;
-      this.setState({
-        localScore: maggicNumber + (contador * difficulty),
-      }, () => playerScoreDispatch(localScore));
+      sum = maggicNumber + (contador * difficulty);
     } else {
       const difficulty = 1;
-      this.setState({
-        localScore: maggicNumber + (contador * difficulty),
-      }, () => playerScoreDispatch(localScore));
+      sum = maggicNumber + (contador * difficulty);
     }
 
+    this.setState({ localScore: sum }, this.dispatcher);
+
     this.nextQuestion();
+  }
+
+  dispatcher() {
+    const { localScore } = this.state;
+    const { playerScoreDispatch } = this.props;
+    playerScoreDispatch(localScore);
   }
 
   nextQuestion() {
@@ -199,5 +221,9 @@ class Game extends Component {
 const mapDispatchToProps = (dispatch) => ({
   playerScoreDispatch: (score) => dispatch(playerScore(score)),
 });
+
+Game.propTypes = {
+  playerScoreDispatch: PropTypes.number.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Game);
