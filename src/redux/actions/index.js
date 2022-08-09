@@ -7,7 +7,8 @@ export const receiveData = (playersName, email) => ({
   email,
 });
 
-export const playerScore = (score) => ({
+export const playerScore = (score, questions) => ({
   type: PLAYER_SCORE,
   score,
+  questions,
 });

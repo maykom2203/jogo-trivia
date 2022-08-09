@@ -23,6 +23,8 @@ class Game extends Component {
       contador: 30,
       disableBtn: false,
       localScore: 0,
+      redirectToFeedback: false,
+      correctQuestions: 0,
     });
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -91,20 +93,26 @@ class Game extends Component {
     const { questions,
       questionNumber,
     } = this.state;
-    const printedQuestion = questions[questionNumber];
-    this.setState({ printedQuestion });
-    const correct = printedQuestion.correct_answer;
-    this.setState({ correctAlternative: correct });
-    const alternatives = printedQuestion.incorrect_answers;
-    const array = alternatives.find((alternative) => alternative === correct);
-    if (!array) {
-      alternatives.push(correct);
+    const maggicNumber = 5;
+    if (questionNumber === maggicNumber) {
+      this.setState({ redirectToFeedback: true });
+    } else {
+      const printedQuestion = questions[questionNumber];
+      this.setState({ printedQuestion });
+      const correct = printedQuestion.correct_answer;
+      this.setState({ correctAlternative: correct });
+      const alternatives = printedQuestion.incorrect_answers;
+      const array = alternatives.find((alternative) => alternative === correct);
+      if (!array) {
+        alternatives.push(correct);
+      }
+      this.setState({ printedAlternatives: this.shuffleArray(alternatives),
+        green: '',
+        red: '',
+        contador: 30,
+        disableBtn: false,
+        btnNext: false });
     }
-    this.setState({ printedAlternatives: this.shuffleArray(alternatives),
-      green: '',
-      red: '',
-      contador: 30,
-      disableBtn: false });
   }
 
   scoreCalculator() {
@@ -125,12 +133,16 @@ class Game extends Component {
     this.setState({ localScore: sum }, this.dispatcher);
 
     this.nextQuestion();
+
+    this.setState((estadoAnterior) => ({
+      correctQuestions: estadoAnterior.correctQuestions + 1,
+    }));
   }
 
   dispatcher() {
-    const { localScore } = this.state;
+    const { localScore, correctQuestions } = this.state;
     const { playerScoreDispatch } = this.props;
-    playerScoreDispatch(localScore);
+    playerScoreDispatch(localScore, correctQuestions);
   }
 
   nextQuestion() {
@@ -144,7 +156,7 @@ class Game extends Component {
   render() {
     const { printedQuestion, printedAlternatives,
       correctAlternative, logOut, green, red, btnNext,
-      contador, disableBtn } = this.state;
+      contador, disableBtn, redirectToFeedback } = this.state;
 
     return (
       <div>
@@ -196,13 +208,16 @@ class Game extends Component {
 
             </button>)
         }
+        {
+          redirectToFeedback && <Redirect to="/feedback" />
+        }
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  playerScoreDispatch: (score) => dispatch(playerScore(score)),
+  playerScoreDispatch: (score, questions) => dispatch(playerScore(score, questions)),
 });
 
 Game.propTypes = {
