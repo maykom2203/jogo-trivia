@@ -1,13 +1,13 @@
-import { RECEIVE_DATA } from '../actions';
+import { RECEIVE_DATA, PLAYER_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
   assertions: '',
-  score: '',
+  score: 0,
   gravatarEmail: '',
 };
 
-const loginReducer = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case RECEIVE_DATA:
     return {
@@ -15,9 +15,14 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       name: action.playersName,
       gravatarEmail: action.email,
     };
+  case PLAYER_SCORE:
+    return {
+      ...state,
+      score: state.score + action.score,
+    };
   default:
     return state;
   }
 };
 
-export default loginReducer;
+export default player;

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import '../App.css';
+import { playerScore } from '../redux/actions';
 
 class Game extends Component {
   constructor() {
@@ -16,17 +19,45 @@ class Game extends Component {
       logOut: false,
       red: '',
       green: '',
+      btnNext: false,
+      contador: 30,
+      disableBtn: false,
+      localScore: 0,
     });
 
     this.getQuestions = this.getQuestions.bind(this);
     this.shuffleAnswers = this.shuffleAnswers.bind(this);
     this.shuffleArray = this.shuffleArray.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.scoreCalculator = this.scoreCalculator.bind(this);
+    this.dispatcher = this.dispatcher.bind(this);
   }
 
   async componentDidMount() {
     await this.getQuestions();
     this.shuffleAnswers();
+    const oneSecond = 1000;
+    this.timerID = setInterval(() => {
+      this.setState((prevState) => ({
+        contador: prevState.contador - 1,
+      }));
+    }, oneSecond);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const zero = 0;
+    if (prevState.contador === zero) {
+      this.setState({
+        contador: 0,
+        disableBtn: true,
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(
+      this.setState(this.timerID),
+    );
   }
 
   async getQuestions() {
@@ -59,9 +90,9 @@ class Game extends Component {
 
   shuffleAnswers() {
     const { questions,
-      // questionNumber
+      questionNumber,
     } = this.state;
-    const printedQuestion = questions[0];
+    const printedQuestion = questions[questionNumber];
     this.setState({ printedQuestion });
     const correct = printedQuestion.correct_answer;
     this.setState({ correctAlternative: correct });
@@ -70,24 +101,68 @@ class Game extends Component {
     if (!array) {
       alternatives.push(correct);
     }
-    this.setState({ printedAlternatives: this.shuffleArray(alternatives) });
+    this.setState({ printedAlternatives: this.shuffleArray(alternatives),
+      green: '',
+      red: '',
+      contador: 30 });
   }
 
-  nextQuestion({ target }) {
-    console.log(target);
-    this.setState({ red: 'red-border', green: 'green-border' });
+  scoreCalculator() {
+    const { contador, printedQuestion } = this.state;
+    const maggicNumber = 10;
+    // if (printedQuestion.difficulty === 'hard') {
+    //   const difficulty = 3;
+    //   this.setState({
+    //     localScore: maggicNumber + (contador * difficulty),
+    //   }, () => playerScoreDispatch(localScore));
+    // } else if (printedQuestion.difficulty === 'medium') {
+    //   const difficulty = 2;
+    //   this.setState({
+    //     localScore: maggicNumber + (contador * difficulty),
+    //   }, () => playerScoreDispatch(localScore));
+    // } else {
+    //   const difficulty = 1;
+    //   this.setState({
+    //     localScore: maggicNumber + (contador * difficulty),
+    //   }, () => playerScoreDispatch(localScore));
+    // }
+
+    let sum = 0;
+    if (printedQuestion.difficulty === 'hard') {
+      const difficulty = 3;
+      sum = maggicNumber + (contador * difficulty);
+    } else if (printedQuestion.difficulty === 'medium') {
+      const difficulty = 2;
+      sum = maggicNumber + (contador * difficulty);
+    } else {
+      const difficulty = 1;
+      sum = maggicNumber + (contador * difficulty);
+    }
+
+    this.setState({ localScore: sum }, this.dispatcher);
+
+    this.nextQuestion();
+  }
+
+  dispatcher() {
+    const { localScore } = this.state;
+    const { playerScoreDispatch } = this.props;
+    playerScoreDispatch(localScore);
+  }
+
+  nextQuestion() {
+    this.setState({ red: 'red-border', green: 'green-border', btnNext: true });
 
     this.setState((estadoAnterior) => ({
       questionNumber: estadoAnterior.questionNumber + 1,
-    }), this.shuffleAnswers);
+    }));
   }
 
   render() {
     const { printedQuestion, printedAlternatives,
-      correctAlternative, logOut, green, red } = this.state;
-    // if (questions.length === 0) {
-    //   this.setState({ logOut: true });
-    // }
+      correctAlternative, logOut, green, red, btnNext,
+      contador, disableBtn } = this.state;
+
     return (
       <div>
         <Header />
@@ -101,8 +176,9 @@ class Game extends Component {
                   type="button"
                   key={ index }
                   data-testid="correct-answer"
-                  onClick={ this.nextQuestion }
+                  onClick={ this.scoreCalculator }
                   className={ green }
+                  disabled={ disableBtn }
                 >
                   {alternative}
 
@@ -114,18 +190,40 @@ class Game extends Component {
                   data-testid={ `wrong-answer-${index}` }
                   onClick={ this.nextQuestion }
                   className={ red }
+                  disabled={ disableBtn }
                 >
                   {alternative}
 
                 </button>)
+
           ))}
+          <p>{ contador }</p>
         </div>
         {
           logOut && <Redirect to="/" />
+        }
+        {
+          btnNext && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.shuffleAnswers }
+            >
+              Next
+
+            </button>)
         }
       </div>
     );
   }
 }
 
-export default Game;
+const mapDispatchToProps = (dispatch) => ({
+  playerScoreDispatch: (score) => dispatch(playerScore(score)),
+});
+
+Game.propTypes = {
+  playerScoreDispatch: PropTypes.number.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Game);
