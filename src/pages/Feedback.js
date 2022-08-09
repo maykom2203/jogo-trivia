@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import Header from './Header';
 
 class Feedback extends Component {
@@ -8,8 +9,10 @@ class Feedback extends Component {
     super();
     this.state = ({
       motivationalPhrase: '',
+      backLogin: false,
     });
     this.feedbackSentense = this.feedbackSentense.bind(this);
+    this.backToLogin = this.backToLogin.bind(this);
   }
 
   componentDidMount() {
@@ -28,8 +31,15 @@ class Feedback extends Component {
     }
   }
 
+  backToLogin() {
+    const { backLogin } = this.state;
+    this.setState({
+      backLogin: true,
+    });
+  }
+
   render() {
-    const { motivationalPhrase } = this.state;
+    const { motivationalPhrase, backLogin } = this.state;
     const { score, questions } = this.props;
     return (
       <div>
@@ -37,6 +47,14 @@ class Feedback extends Component {
         <h2 data-testid="feedback-text">{motivationalPhrase}</h2>
         <h3 data-testid="feedback-total-score">{score}</h3>
         <h3 data-testid="feedback-total-question">{questions}</h3>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ this.backToLogin }
+        >
+          Play Again
+        </button>
+        { backLogin && <Redirect to="/" /> }
       </div>
     );
   }
