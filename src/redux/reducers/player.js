@@ -2,9 +2,10 @@ import { RECEIVE_DATA, PLAYER_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
+  questions: 0,
 };
 
 const player = (state = INITIAL_STATE, action) => {
@@ -19,6 +20,8 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.score,
+      questions: action.questions,
+      assertions: action.questions,
     };
   default:
     return state;
