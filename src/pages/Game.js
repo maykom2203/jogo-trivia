@@ -77,7 +77,6 @@ class Game extends Component {
     } catch (error) {
       console.log(error);
     }
-    // history.push('/');
   }
 
   shuffleArray(arr) {
@@ -104,29 +103,13 @@ class Game extends Component {
     this.setState({ printedAlternatives: this.shuffleArray(alternatives),
       green: '',
       red: '',
-      contador: 30 });
+      contador: 30,
+      disableBtn: false });
   }
 
   scoreCalculator() {
     const { contador, printedQuestion } = this.state;
     const maggicNumber = 10;
-    // if (printedQuestion.difficulty === 'hard') {
-    //   const difficulty = 3;
-    //   this.setState({
-    //     localScore: maggicNumber + (contador * difficulty),
-    //   }, () => playerScoreDispatch(localScore));
-    // } else if (printedQuestion.difficulty === 'medium') {
-    //   const difficulty = 2;
-    //   this.setState({
-    //     localScore: maggicNumber + (contador * difficulty),
-    //   }, () => playerScoreDispatch(localScore));
-    // } else {
-    //   const difficulty = 1;
-    //   this.setState({
-    //     localScore: maggicNumber + (contador * difficulty),
-    //   }, () => playerScoreDispatch(localScore));
-    // }
-
     let sum = 0;
     if (printedQuestion.difficulty === 'hard') {
       const difficulty = 3;
