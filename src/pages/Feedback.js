@@ -10,9 +10,11 @@ class Feedback extends Component {
     this.state = ({
       motivationalPhrase: '',
       backLogin: false,
+      goRanking: false,
     });
     this.feedbackSentense = this.feedbackSentense.bind(this);
     this.backToLogin = this.backToLogin.bind(this);
+    this.goToRanking = this.goToRanking.bind(this);
   }
 
   componentDidMount() {
@@ -32,14 +34,19 @@ class Feedback extends Component {
   }
 
   backToLogin() {
-    const { backLogin } = this.state;
     this.setState({
       backLogin: true,
     });
   }
 
+  goToRanking() {
+    this.setState({
+      goRanking: true,
+    });
+  }
+
   render() {
-    const { motivationalPhrase, backLogin } = this.state;
+    const { motivationalPhrase, backLogin, goRanking } = this.state;
     const { score, questions } = this.props;
     return (
       <div>
@@ -54,7 +61,15 @@ class Feedback extends Component {
         >
           Play Again
         </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ this.goToRanking }
+        >
+          Ranking
+        </button>
         { backLogin && <Redirect to="/" /> }
+        { goRanking && <Redirect to="/ranking" /> }
       </div>
     );
   }
