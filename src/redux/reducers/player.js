@@ -20,7 +20,7 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.score,
-      questions: state.questions + action.questions,
+      questions: action.questions,
     };
   default:
     return state;
