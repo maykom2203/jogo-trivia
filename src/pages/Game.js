@@ -52,15 +52,16 @@ class Game extends Component {
       this.setState({
         contador: 0,
         disableBtn: true,
+        btnNext: true,
       });
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(
-      this.setState(this.timerID),
-    );
-  }
+  // componentWillUnmount() {
+  //   clearInterval(
+  //     this.setState(this.timerID),
+  //   );
+  // }
 
   async getQuestions() {
     const urlToken = localStorage.getItem('token');
