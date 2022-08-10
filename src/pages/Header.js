@@ -25,6 +25,7 @@ class Header extends Component {
     this.setState({
       url,
     });
+    localStorage.setItem('url', url);
   }
 
   render() {

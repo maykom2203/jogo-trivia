@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Ranking extends Component {
   constructor() {
@@ -8,12 +10,40 @@ class Ranking extends Component {
       goLogin: false,
     });
     this.goToLogin = this.goToLogin.bind(this);
+    this.saveLocal = this.saveLocal.bind(this);
+  }
+
+  componentDidMount() {
+    this.saveLocal();
   }
 
   goToLogin() {
     this.setState({
       goLogin: true,
     });
+  }
+
+  saveLocal() {
+    const { name, score } = this.props;
+    const storage = localStorage;
+    const url = storage.getItem('url');
+    const player = {
+      name,
+      score,
+      url,
+    };
+    const intitial = JSON.parse(storage.getItem('playerList'));
+    let array = [intitial];
+    if (intitial === undefined || intitial === null) {
+      array = [player];
+      storage.setItem('playerList', JSON.stringify(array));
+    } else {
+      for (let index = 0; index < intitial.length; index += 1) {
+        array[index] = intitial[index];
+      }
+      array.push(player);
+      storage.setItem('playerList', JSON.stringify(array));
+    }
   }
 
   render() {
@@ -33,5 +63,14 @@ class Ranking extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  name: state.player.name,
+  score: state.player.score,
+});
 
-export default Ranking;
+Ranking.propTypes = {
+  name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps, null)(Ranking);
