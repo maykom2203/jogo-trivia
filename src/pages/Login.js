@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
+// import Button from 'react-bootstrap/Button';
 import { receiveData } from '../redux/actions';
 // import { reciveEmail } from '../redux/actions';
 // import Header from './Header';
@@ -89,7 +91,9 @@ class Login extends Component {
               />
             </label>
           </label>
-          <button
+          <Button
+            variant="primary"
+            size="sm"
             type="button"
             disabled={ disabledBol }
             onClick={ this.saveToken }
@@ -97,11 +101,16 @@ class Login extends Component {
           >
             Play
 
-          </button>
+          </Button>
           <Link to="/settings">
-            <button type="button" data-testid="btn-settings">
+            <Button
+              type="button"
+              variant="warning"
+              size="sm"
+              data-testid="btn-settings"
+            >
               Configurações
-            </button>
+            </Button>
           </Link>
         </form>
       </div>
