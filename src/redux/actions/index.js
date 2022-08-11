@@ -12,3 +12,8 @@ export const playerScore = (score, questions) => ({
   score,
   questions,
 });
+
+export const zerarScore = (payload) => ({
+  type: 'RESET_SCORE',
+  payload,
+});

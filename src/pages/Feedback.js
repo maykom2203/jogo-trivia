@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Header from './Header';
+import { zerarScore } from '../redux/actions';
 
 class Feedback extends Component {
   constructor() {
@@ -34,9 +35,14 @@ class Feedback extends Component {
   }
 
   backToLogin() {
+    const { zerarScoreDispatch } = this.props;
     this.setState({
       backLogin: true,
     });
+    const obj = {
+      score: 0,
+    };
+    zerarScoreDispatch(obj);
   }
 
   goToRanking() {
@@ -79,8 +85,13 @@ const mapStateToProps = (state) => ({
   score: state.player.score,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  zerarScoreDispatch: (payload) => dispatch(zerarScore(payload)),
+});
+
 Feedback.propTypes = {
   questions: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
+  zerarScoreDispatch: PropTypes.number.isRequired,
 };
-export default connect(mapStateToProps, null)(Feedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

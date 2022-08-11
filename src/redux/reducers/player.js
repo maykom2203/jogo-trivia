@@ -23,6 +23,10 @@ const player = (state = INITIAL_STATE, action) => {
       questions: action.questions,
       assertions: action.questions,
     };
+  case 'RESET_SCORE':
+    return {
+      score: action.payload.score,
+    };
   default:
     return state;
   }
