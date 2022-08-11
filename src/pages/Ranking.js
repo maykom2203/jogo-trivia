@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import { zerarScore } from '../redux/actions';
 
 class Ranking extends Component {
@@ -74,13 +75,14 @@ class Ranking extends Component {
 
           </div>
         ))}
-        <button
-          type="button"
+        <Button
+          type="Button"
           data-testid="btn-go-home"
+          variant="warning"
           onClick={ this.goToLogin }
         >
           Login
-        </button>
+        </Button>
         { goLogin && <Redirect to="/" /> }
       </div>
     );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 import Header from './Header';
 import '../App.css';
 import { playerScore } from '../redux/actions';
@@ -168,29 +169,31 @@ class Game extends Component {
           {printedAlternatives.map((alternative, index) => (
             alternative === correctAlternative
               ? (
-                <button
-                  type="button"
+                <Button
+                  type="Button"
+                  className={ green }
+                  variant="warning"
                   key={ index }
                   data-testid="correct-answer"
                   onClick={ this.scoreCalculator }
-                  className={ green }
                   disabled={ disableBtn }
                 >
                   {alternative}
 
-                </button>)
+                </Button>)
               : (
-                <button
-                  type="button"
+                <Button
+                  type="Button"
+                  className={ red }
+                  variant="warning"
                   key={ index }
                   data-testid={ `wrong-answer-${index}` }
                   onClick={ this.nextQuestion }
-                  className={ red }
                   disabled={ disableBtn }
                 >
                   {alternative}
 
-                </button>)
+                </Button>)
 
           ))}
           <p>{ contador }</p>
@@ -200,14 +203,15 @@ class Game extends Component {
         }
         {
           btnNext && (
-            <button
-              type="button"
+            <Button
+              type="Button"
+              variant="primary"
               data-testid="btn-next"
               onClick={ this.shuffleAnswers }
             >
               Next
 
-            </button>)
+            </Button>)
         }
         {
           redirectToFeedback && <Redirect to="/feedback" />

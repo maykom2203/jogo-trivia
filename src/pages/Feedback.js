@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Header from './Header';
 import { zerarScore } from '../redux/actions';
+import Button from 'react-bootstrap/Button';
 
 class Feedback extends Component {
   constructor() {
@@ -60,20 +61,22 @@ class Feedback extends Component {
         <h2 data-testid="feedback-text">{motivationalPhrase}</h2>
         <h3 data-testid="feedback-total-score">{score}</h3>
         <h3 data-testid="feedback-total-question">{questions}</h3>
-        <button
-          type="button"
+        <Button
+          type="Button"
           data-testid="btn-play-again"
+          variant="primary"
           onClick={ this.backToLogin }
         >
           Play Again
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          type="Button"
+          variant="warning"
           data-testid="btn-ranking"
           onClick={ this.goToRanking }
         >
           Ranking
-        </button>
+        </Button>
         { backLogin && <Redirect to="/" /> }
         { goRanking && <Redirect to="/ranking" /> }
       </div>

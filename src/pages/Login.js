@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
-// import Button from 'react-bootstrap/Button';
+// import { Button } from 'reactstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { receiveData } from '../redux/actions';
 // import { reciveEmail } from '../redux/actions';
 // import Header from './Header';
@@ -71,29 +73,34 @@ class Login extends Component {
     return (
       <div>
         <form>
-          <label htmlFor="playersName">
-            Nome:
-            <input
+          {/* <label htmlFor="playersName"> */}
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="basic-addon1">Name:</InputGroup.Text>
+            <Form.Control
               type="text"
               data-testid="input-player-name"
               name="playersName"
               value={ playersName }
               onChange={ this.hadleChange }
             />
-            <label htmlFor="email">
-              Email:
-              <input
-                type="email"
-                data-testid="input-gravatar-email"
-                name="email"
-                value={ email }
-                onChange={ this.hadleChange }
-              />
-            </label>
-          </label>
+          </InputGroup>
+          {/* </label> */}
+
+          {/* <label htmlFor="email"> */}
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="basic-addon1">Email:</InputGroup.Text>
+            <Form.Control
+              type="email"
+              data-testid="input-gravatar-email"
+              name="email"
+              value={ email }
+              onChange={ this.hadleChange }
+            />
+          </InputGroup>
+          {/* </label> */}
           <Button
-            variant="primary"
-            size="sm"
+            variant="warning"
+            size="lg"
             type="button"
             disabled={ disabledBol }
             onClick={ this.saveToken }
@@ -106,7 +113,7 @@ class Login extends Component {
             <Button
               type="button"
               variant="warning"
-              size="sm"
+              size="lg"
               data-testid="btn-settings"
             >
               Configurações
