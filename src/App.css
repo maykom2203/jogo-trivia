@@ -12,18 +12,14 @@
   float: none;
   justify-content: center;
   align-items: center;
+  justify-content: space-around;
+  padding: 50px;
+  flex-direction: column;
 }
 .gameName{
   font-family: 'Montserrat', sans-serif;
   font-family: 'Rubik Dirt', cursive;
   color: white;
-}
-.alingDiv{
-  display: flex;
-  justify-content: space-around;
-  padding: 50px;
-  flex-direction: column;
-  align-items: center;
 }
 .loginFormName{
   margin-top: 16px;

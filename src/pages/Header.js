@@ -33,7 +33,12 @@ class Header extends Component {
     const { url } = this.state;
     return (
       <header className="head">
-        <img clasName="imageHead" src={ url } alt="nossa cara" data-testid="header-profile-picture" />
+        <img
+          clasName="imageHead"
+          src={ url }
+          alt="nossa cara"
+          data-testid="header-profile-picture"
+        />
         <h1 data-testid="header-player-name">{name}</h1>
         <h1>Sua pontuação:</h1>
         <h1

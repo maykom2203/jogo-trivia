@@ -60,23 +60,28 @@ class Ranking extends Component {
     console.log(scoreState);
     return (
       <div>
-        <h1 className="RankingHead" 
-        data-testid="ranking-title">Ranking</h1>
-        <div className="scoreBoard">
-        {scoreState && scoreState.sort((a, b) => b.score - a.score).map((obj, i) => (
-          <div className="boardPlayer" key={ i }>
-            <img src={ obj.url } alt="Img Gravatar" />
-            <span
-              data-testid={ `player-name-${i}` }
-            >
-              {obj.name}
-            </span>
-            <span data-testid={ `player-score-${i}` }>
-              {obj.score}
-            </span>
+        <h1
+          className="RankingHead"
+          data-testid="ranking-title"
+        >
+          Ranking
 
-          </div>
-        ))}
+        </h1>
+        <div className="scoreBoard">
+          {scoreState && scoreState.sort((a, b) => b.score - a.score).map((obj, i) => (
+            <div className="boardPlayer" key={ i }>
+              <img src={ obj.url } alt="Img Gravatar" />
+              <span
+                data-testid={ `player-name-${i}` }
+              >
+                {obj.name}
+              </span>
+              <span data-testid={ `player-score-${i}` }>
+                {obj.score}
+              </span>
+
+            </div>
+          ))}
         </div>
         <Button
           type="Button"

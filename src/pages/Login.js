@@ -73,74 +73,75 @@ class Login extends Component {
     // const { usersEmail } = this.props;
     return (
       <div className="boxLogin">
-        <div className="alingDiv">
-          <h1 className="gameName">Trivia Game</h1>
-          <form className="formLogin">
-            {/* <label htmlFor="playersName"> */}
-            <InputGroup className="mb-3 loginFormName">
-              <InputGroup.Text
-                id="basic-addon1"
-                className="inputLogin"
-              >
-                Name:
 
-              </InputGroup.Text>
-              <Form.Control
-                className="textLogin"
-                type="text"
-                data-testid="input-player-name"
-                name="playersName"
-                value={ playersName }
-                onChange={ this.hadleChange }
-              />
-            </InputGroup>
-            {/* </label> */}
+        <h1 className="gameName">Trivia Game</h1>
+        <form className="formLogin">
+          {/* <label htmlFor="playersName"> */}
+          <InputGroup className="mb-3 loginFormName">
+            <InputGroup.Text
+              id="basic-addon1"
+              className="inputLogin"
+            >
+              Name:
 
-            {/* <label htmlFor="email"> */}
-            <InputGroup className="mb-3">
-              <InputGroup.Text
-                id="basic-addon1"
-                className="inputLogin"
-              >
-                Email:
+            </InputGroup.Text>
+            <Form.Control
+              className="textLogin"
+              type="text"
+              data-testid="input-player-name"
+              name="playersName"
+              value={ playersName }
+              onChange={ this.hadleChange }
+            />
+          </InputGroup>
+          {/* </label> */}
 
-              </InputGroup.Text>
-              <Form.Control
-                className="textLogin"
-                type="email"
-                data-testid="input-gravatar-email"
-                name="email"
-                value={ email }
-                onChange={ this.hadleChange }
-              />
-            </InputGroup>
-            {/* </label> */}
-            <span className="playButton">
+          {/* <label htmlFor="email"> */}
+          <InputGroup className="mb-3">
+            <InputGroup.Text
+              id="basic-addon1"
+              className="inputLogin"
+            >
+              Email:
+
+            </InputGroup.Text>
+            <Form.Control
+              className="textLogin"
+              type="email"
+              data-testid="input-gravatar-email"
+              name="email"
+              value={ email }
+              onChange={ this.hadleChange }
+            />
+          </InputGroup>
+          {/* </label> */}
+          <span className="playButton">
+            <Button
+              variant="warning"
+              size="lg"
+              type="button"
+              disabled={ disabledBol }
+              onClick={ this.saveToken }
+              data-testid="btn-play"
+            >
+              Play
+
+            </Button>
+            <Link to="/settings" className="settingsButton">
+
               <Button
+                type="button"
                 variant="warning"
                 size="lg"
-                type="button"
-                disabled={ disabledBol }
-                onClick={ this.saveToken }
-                data-testid="btn-play"
+                data-testid="btn-settings"
               >
-                Play
-
+                Configurações
               </Button>
-              <Link to="/settings" className="settingsButton">
-                <Button
-                  type="button"
-                  variant="warning"
-                  size="lg"
-                  data-testid="btn-settings"
-                >
-                  Configurações
-                </Button>
-              </Link>
-            </span>
-          </form>
-        </div>
+            </Link>
+          </span>
+        </form>
       </div>
+
     );
   }
 }

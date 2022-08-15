@@ -58,29 +58,29 @@ class Feedback extends Component {
     return (
       <div className="gameBox">
         <Header />
-        <div className="feedBackBox" >
-        <h2 data-testid="feedback-text">{motivationalPhrase}</h2>
-        <h3 data-testid="feedback-total-score">{score}</h3>
-        <h3 data-testid="feedback-total-question">{questions}</h3>
-        <Button
-          type="Button"
-          data-testid="btn-play-again"
-          variant="primary"
-          onClick={ this.backToLogin }
-        >
-          Play Again
-        </Button>
-        <Button
-          type="Button"
-          variant="warning"
-          data-testid="btn-ranking"
-          onClick={ this.goToRanking }
-        >
-          Ranking
-        </Button>
-        { backLogin && <Redirect to="/" /> }
-        { goRanking && <Redirect to="/ranking" /> }
-      </div>
+        <div className="feedBackBox">
+          <h2 data-testid="feedback-text">{motivationalPhrase}</h2>
+          <h3 data-testid="feedback-total-score">{score}</h3>
+          <h3 data-testid="feedback-total-question">{questions}</h3>
+          <Button
+            type="Button"
+            data-testid="btn-play-again"
+            variant="primary"
+            onClick={ this.backToLogin }
+          >
+            Play Again
+          </Button>
+          <Button
+            type="Button"
+            variant="warning"
+            data-testid="btn-ranking"
+            onClick={ this.goToRanking }
+          >
+            Ranking
+          </Button>
+          {backLogin && <Redirect to="/" />}
+          {goRanking && <Redirect to="/ranking" />}
+        </div>
       </div>
     );
   }
