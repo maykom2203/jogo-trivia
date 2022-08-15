@@ -74,6 +74,11 @@
   flex-direction: column;
 }
 
+.buttonAnswerOptions {
+  display: flex;
+  flex-direction: column;
+}
+
 .questionsAndAnswer {
   align-items: center;
   background-color: rgb(100, 100, 100);
@@ -88,7 +93,7 @@
 }
 
 .btn-warning {
-  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 .buttonAnswer {

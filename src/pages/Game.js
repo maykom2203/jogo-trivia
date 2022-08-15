@@ -168,7 +168,7 @@ class Game extends Component {
             <h1 data-testid="question-category">{printedQuestion.category}</h1>
             <h2 data-testid="question-text">{printedQuestion.question}</h2>
             <div data-testid="answer-options" className="buttonAnswer">
-              <span>
+              <span className="buttonAnswerOptions">
                 {printedAlternatives.map((alternative, index) => (
                   alternative === correctAlternative
                     ? (
