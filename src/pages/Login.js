@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { receiveData } from '../redux/actions';
+import '../App.css';
 // import { reciveEmail } from '../redux/actions';
 // import Header from './Header';
 
@@ -71,55 +72,74 @@ class Login extends Component {
     // const red = <Redirect to="/game" />;
     // const { usersEmail } = this.props;
     return (
-      <div>
-        <form>
-          {/* <label htmlFor="playersName"> */}
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Name:</InputGroup.Text>
-            <Form.Control
-              type="text"
-              data-testid="input-player-name"
-              name="playersName"
-              value={ playersName }
-              onChange={ this.hadleChange }
-            />
-          </InputGroup>
-          {/* </label> */}
+      <div className="boxLogin">
+        <div className="alingDiv">
+          <h1 className="gameName">Trivia Game</h1>
+          <form className="formLogin">
+            {/* <label htmlFor="playersName"> */}
+            <InputGroup className="mb-3 loginFormName">
+              <InputGroup.Text
+                id="basic-addon1"
+                className="inputLogin"
+              >
+                Name:
 
-          {/* <label htmlFor="email"> */}
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Email:</InputGroup.Text>
-            <Form.Control
-              type="email"
-              data-testid="input-gravatar-email"
-              name="email"
-              value={ email }
-              onChange={ this.hadleChange }
-            />
-          </InputGroup>
-          {/* </label> */}
-          <Button
-            variant="warning"
-            size="lg"
-            type="button"
-            disabled={ disabledBol }
-            onClick={ this.saveToken }
-            data-testid="btn-play"
-          >
-            Play
+              </InputGroup.Text>
+              <Form.Control
+                className="textLogin"
+                type="text"
+                data-testid="input-player-name"
+                name="playersName"
+                value={ playersName }
+                onChange={ this.hadleChange }
+              />
+            </InputGroup>
+            {/* </label> */}
 
-          </Button>
-          <Link to="/settings">
-            <Button
-              type="button"
-              variant="warning"
-              size="lg"
-              data-testid="btn-settings"
-            >
-              Configurações
-            </Button>
-          </Link>
-        </form>
+            {/* <label htmlFor="email"> */}
+            <InputGroup className="mb-3">
+              <InputGroup.Text
+                id="basic-addon1"
+                className="inputLogin"
+              >
+                Email:
+
+              </InputGroup.Text>
+              <Form.Control
+                className="textLogin"
+                type="email"
+                data-testid="input-gravatar-email"
+                name="email"
+                value={ email }
+                onChange={ this.hadleChange }
+              />
+            </InputGroup>
+            {/* </label> */}
+            <span className="playButton">
+              <Button
+                variant="warning"
+                size="lg"
+                type="button"
+                disabled={ disabledBol }
+                onClick={ this.saveToken }
+                data-testid="btn-play"
+              >
+                Play
+
+              </Button>
+              <Link to="/settings" className="settingsButton">
+                <Button
+                  type="button"
+                  variant="warning"
+                  size="lg"
+                  data-testid="btn-settings"
+                >
+                  Configurações
+                </Button>
+              </Link>
+            </span>
+          </form>
+        </div>
       </div>
     );
   }

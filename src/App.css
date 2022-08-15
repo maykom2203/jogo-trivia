@@ -1,63 +1,167 @@
-body {
+.bobody {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background-color: rgb(0, 0, 0);
+  width: 100vw;
+  height: 100vw;
 }
-
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 15vmin;
-  pointer-events: none;
-} */
-
-.red-border {
-  border: 3px solid red;
-}
-
-.green-border {
-  border: 3px solid rgb(6, 240, 15);
-}
-
-/* @media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  }
-}
-
-.App-header {
+/* Page Login */
+.boxLogin{
+  display: flex;
+  float: none;
+  justify-content: center;
   align-items: center;
-  background-color: #282c34;
+}
+.gameName{
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Rubik Dirt', cursive;
+  color: white;
+}
+.alingDiv{
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
+  flex-direction: column;
+  align-items: center;
+}
+.loginFormName{
+  margin-top: 16px;
+}
+.playButton{
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  justify-content: center;
+  margin: 16px;
+  padding-left: 5px;
+}
+.input-group{
+  justify-content: center;
+}
+.formLogin{
+  background-color: rgb(100, 100, 100);
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+  width: 500px;
+  border-radius: 10px;
+}
+.settingsButton{
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  justify-content: center;
+  padding-left: 2.5px;
+}
+.inputLogin{
+  width: 100px;
+  justify-content: space-around;
+}
+.textLogin{
+  max-width: 350px;
+  justify-content: space-around;
+}
+
+/* Page Game */
+.gameBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.questionsAndAnswer{
+  background-color: rgb(100, 100, 100);
   color: white;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  margin: 15px;
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 1000px;
+}
+.buttonAnswer{
+  margin: 30px;
+}
+
+/*Feedback*/
+.feedBackBox{
+  background-color: rgb(100, 100, 100);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 1000px;
+}
+
+/* Component Header */
+
+.head{
+  background-color: rgb(100, 100, 100);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1000px;
+  width: 300px;
+  height: 300px;
   justify-content: center;
-  min-height: 100vh;
+
+}
+.imageHead{
+  width: 50px;
+}
+.nameScore{
+  display: flex;
+  flex-direction: row;
+}
+.red-border {
+  margin: 5px;
+  box-shadow: 0 0 1em red;
+}
+Button{
+
+}
+.green-border {
+  border: 3px solid rgb(6, 240, 15);
+  margin: 5px;
+  box-shadow: 0 0 2em green;
 }
 
-.App-link {
-  color: #61dafb;
+/* Settings */ 
+
+.SettingsColor{
+  color: white;
+  text-align: center;
 }
 
-@keyframes shake {
+/* Ranking */
 
-  10%, 90% {
-    transform: translate3d(-1px, 0, 0);
-  }
-
-  20%, 80% {
-    transform: translate3d(2px, 0, 0);
-  }
-
-  30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
-  }
-
-  40%, 60% {
-    transform: translate3d(4px, 0, 0);
-  }
-} */
+.RankingHead{
+  background-color: rgb(100, 100, 100);
+  text-align: center;
+  color: white;
+  padding: 5px;
+}
+.scoreBoard{
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 5px;
+}
+.boardPlayer{
+  background-color: rgb(100, 100, 100);
+  margin: 5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding-right: 3px;
+}

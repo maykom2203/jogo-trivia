@@ -32,14 +32,16 @@ class Header extends Component {
     const { name, score } = this.props;
     const { url } = this.state;
     return (
-      <header>
-        <img src={ url } alt="nossa cara" data-testid="header-profile-picture" />
+      <header className="head">
+        <img clasName="imageHead" src={ url } alt="nossa cara" data-testid="header-profile-picture" />
         <h1 data-testid="header-player-name">{name}</h1>
+        <h1>Sua pontuação:</h1>
         <h1
           data-testid="header-score"
         >
           {score}
         </h1>
+        <div className="nameScore" />
       </header>
     );
   }

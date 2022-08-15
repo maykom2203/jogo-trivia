@@ -163,59 +163,65 @@ class Game extends Component {
     return (
       <div>
         <Header />
-        <h1 data-testid="question-category">{printedQuestion.category}</h1>
-        <h2 data-testid="question-text">{printedQuestion.question}</h2>
-        <div data-testid="answer-options">
-          {printedAlternatives.map((alternative, index) => (
-            alternative === correctAlternative
-              ? (
+        <div className="gameBox">
+          <div className="questionsAndAnswer">
+            <h1 data-testid="question-category">{printedQuestion.category}</h1>
+            <h2 data-testid="question-text">{printedQuestion.question}</h2>
+            <div data-testid="answer-options" className="buttonAnswer">
+              <span>
+                {printedAlternatives.map((alternative, index) => (
+                  alternative === correctAlternative
+                    ? (
+                      <Button
+                        type="Button"
+                        className={ green }
+                        variant="warning"
+                        key={ index }
+                        data-testid="correct-answer"
+                        onClick={ this.scoreCalculator }
+                        disabled={ disableBtn }
+                      >
+                        {alternative}
+
+                      </Button>)
+                    : (
+                      <Button
+                        type="Button"
+                        className={ red }
+                        variant="warning"
+                        key={ index }
+                        data-testid={ `wrong-answer-${index}` }
+                        onClick={ this.nextQuestion }
+                        disabled={ disableBtn }
+                      >
+                        {alternative}
+
+                      </Button>)
+
+                ))}
+              </span>
+              <p>{ contador }</p>
+            </div>
+            {
+              logOut && <Redirect to="/" />
+            }
+            {
+              btnNext && (
                 <Button
                   type="Button"
-                  className={ green }
-                  variant="warning"
-                  key={ index }
-                  data-testid="correct-answer"
-                  onClick={ this.scoreCalculator }
-                  disabled={ disableBtn }
+                  variant="primary"
+                  data-testid="btn-next"
+                  onClick={ this.shuffleAnswers }
                 >
-                  {alternative}
+                  Next
 
                 </Button>)
-              : (
-                <Button
-                  type="Button"
-                  className={ red }
-                  variant="warning"
-                  key={ index }
-                  data-testid={ `wrong-answer-${index}` }
-                  onClick={ this.nextQuestion }
-                  disabled={ disableBtn }
-                >
-                  {alternative}
-
-                </Button>)
-
-          ))}
-          <p>{ contador }</p>
+            }
+            {
+              redirectToFeedback && <Redirect to="/feedback" />
+            }
+          </div>
         </div>
-        {
-          logOut && <Redirect to="/" />
-        }
-        {
-          btnNext && (
-            <Button
-              type="Button"
-              variant="primary"
-              data-testid="btn-next"
-              onClick={ this.shuffleAnswers }
-            >
-              Next
-
-            </Button>)
-        }
-        {
-          redirectToFeedback && <Redirect to="/feedback" />
-        }
       </div>
     );
   }

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import Header from './Header';
 import { zerarScore } from '../redux/actions';
-import Button from 'react-bootstrap/Button';
 
 class Feedback extends Component {
   constructor() {
@@ -56,8 +56,9 @@ class Feedback extends Component {
     const { motivationalPhrase, backLogin, goRanking } = this.state;
     const { score, questions } = this.props;
     return (
-      <div>
+      <div className="gameBox">
         <Header />
+        <div className="feedBackBox" >
         <h2 data-testid="feedback-text">{motivationalPhrase}</h2>
         <h3 data-testid="feedback-total-score">{score}</h3>
         <h3 data-testid="feedback-total-question">{questions}</h3>
@@ -79,6 +80,7 @@ class Feedback extends Component {
         </Button>
         { backLogin && <Redirect to="/" /> }
         { goRanking && <Redirect to="/ranking" /> }
+      </div>
       </div>
     );
   }
