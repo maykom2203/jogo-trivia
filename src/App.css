@@ -1,163 +1,172 @@
 .bobody {
+  background-color: black;
   box-sizing: border-box;
+  height: 100vw;
   margin: 0;
   padding: 0;
-  background-color: rgb(0, 0, 0);
   width: 100vw;
-  height: 100vw;
 }
+
 /* Page Login */
-.boxLogin{
-  display: flex;
-  float: none;
-  justify-content: center;
+.boxLogin {
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  float: none;
   justify-content: space-around;
   padding: 50px;
-  flex-direction: column;
 }
-.gameName{
-  font-family: 'Montserrat', sans-serif;
-  font-family: 'Rubik Dirt', cursive;
+
+.gameName {
   color: white;
+  font-family: Montserrat , sans-serif;
 }
-.loginFormName{
+
+.loginFormName {
   margin-top: 16px;
 }
-.playButton{
+
+.playButton {
+  align-content: space-around;
   display: flex;
   flex-direction: row;
-  align-content: space-around;
   justify-content: center;
   margin: 16px;
   padding-left: 5px;
 }
-.input-group{
+
+.input-group {
   justify-content: center;
 }
-.formLogin{
+
+.formLogin {
+  align-content: space-around;
   background-color: rgb(100, 100, 100);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  align-content: space-around;
   justify-content: center;
   width: 500px;
-  border-radius: 10px;
 }
-.settingsButton{
+
+.settingsButton {
+  align-content: space-around;
   display: flex;
   flex-direction: row;
-  align-content: space-around;
   justify-content: center;
   padding-left: 2.5px;
 }
-.inputLogin{
+
+.inputLogin {
+  justify-content: space-around;
   width: 100px;
-  justify-content: space-around;
 }
-.textLogin{
-  max-width: 350px;
+
+.textLogin {
   justify-content: space-around;
+  max-width: 350px;
 }
 
 /* Page Game */
-.gameBox{
+.gameBox {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
-.questionsAndAnswer{
+
+.questionsAndAnswer {
+  align-items: center;
   background-color: rgb(100, 100, 100);
+  border-radius: 10px;
   color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 15px;
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
   max-width: 1000px;
+  padding: 5px;
+  text-align: center;
 }
-.buttonAnswer{
+
+.buttonAnswer {
   margin: 30px;
 }
 
-/*Feedback*/
-.feedBackBox{
+/* Feedback */
+.feedBackBox {
+  align-items: center;
   background-color: rgb(100, 100, 100);
+  border-radius: 10px;
   color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 15px;
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
   max-width: 1000px;
+  padding: 5px;
+  text-align: center;
 }
 
 /* Component Header */
-
-.head{
+.head {
+  align-items: center;
   background-color: rgb(100, 100, 100);
+  border-radius: 1000px;
   color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border-radius: 1000px;
-  width: 300px;
   height: 300px;
   justify-content: center;
+  width: 300px;
 
 }
-.imageHead{
+
+.imageHead {
   width: 50px;
 }
-.nameScore{
+
+.nameScore {
   display: flex;
   flex-direction: row;
 }
-.red-border {
-  margin: 5px;
-  box-shadow: 0 0 1em red;
-}
-Button{
 
+.red-border {
+  box-shadow: 0 0 1em red;
+  margin: 5px;
 }
+
 .green-border {
   border: 3px solid rgb(6, 240, 15);
-  margin: 5px;
   box-shadow: 0 0 2em green;
+  margin: 5px;
 }
 
-/* Settings */ 
-
-.SettingsColor{
+/* Settings */
+.SettingsColor {
   color: white;
   text-align: center;
 }
 
 /* Ranking */
-
-.RankingHead{
+.RankingHead {
   background-color: rgb(100, 100, 100);
-  text-align: center;
   color: white;
   padding: 5px;
+  text-align: center;
 }
-.scoreBoard{
+
+.scoreBoard {
   display: flex;
   flex-direction: column;
+  margin: 5px;
   max-width: 300px;
-  margin: 5px;
 }
-.boardPlayer{
+
+.boardPlayer {
+  align-items: center;
   background-color: rgb(100, 100, 100);
-  margin: 5px;
   border-radius: 10px;
+  color: white;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  color: white;
+  margin: 5px;
   padding-right: 3px;
 }
