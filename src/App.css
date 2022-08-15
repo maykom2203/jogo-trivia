@@ -87,6 +87,10 @@
   text-align: center;
 }
 
+.btn-warning {
+  margin-right: 5px;
+}
+
 .buttonAnswer {
   margin: 30px;
 }
